@@ -1,6 +1,6 @@
 {
- "version": "1.8",
+ "version": "1.9",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 170,
- "notas": "Actualización en 1 clic y aviso arriba cuando hay versión nueva. Sincronizar con el juego."
+ "notas": "Sincronizar arreglado: tu volante gira 1:1 con el del juego aunque el juego gire más."
 }
