@@ -1,6 +1,6 @@
 {
- "version": "2.2",
+ "version": "2.3",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 173,
- "notas": "Arreglado: con el volante recto el juego ya no se va hacia un lado. Calibrar centro."
+ "size_kb": 174,
+ "notas": "Detectar pedales en 3 pasos (arregla el acelerador) y opción: la cámara sigue al volante."
 }
