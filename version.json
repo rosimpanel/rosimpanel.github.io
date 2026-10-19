@@ -1,6 +1,6 @@
 {
- "version": "2.1",
+ "version": "2.2",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 173,
- "notas": "Pitidos que se oyen por los altavoces y pitido al llegar al tope del volante del juego."
+ "notas": "Arreglado: con el volante recto el juego ya no se va hacia un lado. Calibrar centro."
 }
