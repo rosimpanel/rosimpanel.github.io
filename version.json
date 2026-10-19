@@ -1,6 +1,6 @@
 {
- "version": "2.6",
+ "version": "2.7",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 180,
- "notas": "Calibrar con el juego: iguala tu volante con el del juego paso a paso. Quita la zona muerta real del juego."
+ "notas": "Calibrar con el juego: línea azul aproximada de dónde está el volante del juego."
 }
