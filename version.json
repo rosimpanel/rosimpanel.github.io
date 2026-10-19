@@ -1,6 +1,6 @@
 {
- "version": "2.8",
+ "version": "2.9",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 180,
- "notas": "El juego gira lo mismo que tu volante (1:1). Usa CALIBRAR CON EL JUEGO."
+ "notas": "Calibrar con el juego por marcas: pones tu volante en la marca y con la cruceta igualas el del juego. 1:1 exacto."
 }
