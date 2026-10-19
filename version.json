@@ -1,6 +1,6 @@
 {
- "version": "2.3",
+ "version": "2.4",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 174,
- "notas": "Detectar pedales en 3 pasos (arregla el acelerador) y opción: la cámara sigue al volante."
+ "size_kb": 175,
+ "notas": "Sincronización nueva: ajustas con la cruceta mirando el juego. Volante recto = centro exacto."
 }
