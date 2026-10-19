@@ -1,6 +1,6 @@
 {
- "version": "3.2",
+ "version": "3.3",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 183,
- "notas": "Calibrar volante mide los grados reales de tu volante (paso de 90°): el dibujo gira igual que el tuyo."
+ "notas": "Calibración arreglada: el paso de 90° ya no mide antes de tiempo y detecta solo la dirección del volante."
 }
