@@ -1,6 +1,6 @@
 {
- "version": "2.7",
+ "version": "2.8",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 180,
- "notas": "Calibrar con el juego: línea azul aproximada de dónde está el volante del juego."
+ "notas": "El juego gira lo mismo que tu volante (1:1). Usa CALIBRAR CON EL JUEGO."
 }
