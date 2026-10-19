@@ -1,6 +1,6 @@
 {
- "version": "1.9",
+ "version": "2.0",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 170,
- "notas": "Sincronizar arreglado: tu volante gira 1:1 con el del juego aunque el juego gire más."
+ "size_kb": 172,
+ "notas": "Modo seguimiento: para juegos en los que el volante sigue girando solo. Volante 1:1 con el juego."
 }
