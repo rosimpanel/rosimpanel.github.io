@@ -1,6 +1,6 @@
 {
- "version": "2.0",
+ "version": "2.1",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 172,
- "notas": "Modo seguimiento: para juegos en los que el volante sigue girando solo. Volante 1:1 con el juego."
+ "size_kb": 173,
+ "notas": "Pitidos que se oyen por los altavoces y pitido al llegar al tope del volante del juego."
 }
