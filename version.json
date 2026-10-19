@@ -1,6 +1,6 @@
 {
- "version": "2.4",
+ "version": "2.5",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 175,
- "notas": "Sincronización nueva: ajustas con la cruceta mirando el juego. Volante recto = centro exacto."
+ "size_kb": 177,
+ "notas": "Calibrar volante nuevo: toca la línea naranja hasta el tope. Tu tope = tope del juego."
 }
