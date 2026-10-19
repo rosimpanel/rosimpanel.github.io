@@ -1,6 +1,6 @@
 {
- "version": "3.1",
+ "version": "3.2",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 183,
- "notas": "Nuevo: Ajustar grados con el juego. El juego gira lo mismo que tu volante y se para en tu tope."
+ "notas": "Calibrar volante mide los grados reales de tu volante (paso de 90°): el dibujo gira igual que el tuyo."
 }
