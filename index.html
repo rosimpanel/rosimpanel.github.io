@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="RoSim: conecta tu volante (Logitech G29, G920, G923…), sidestick Airbus y palanca de gases a Roblox. Sin zona muerta. Gratis para Windows.">
+<meta property="og:title" content="RoSim — volantes y joysticks para Roblox">
+<meta property="og:description" content="Tu volante en Roblox, sin zona muerta. Gratis para Windows.">
+<meta property="og:image" content="https://rosimpanel.github.io/logo.png">
+<link rel="icon" type="image/png" href="logo_64.png">
+<link rel="apple-touch-icon" href="logo.png">
+<title>RoSim — volantes y joysticks para Roblox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+/* Layout: cabina de mando — hero con demo del volante, banda de compatibles, tres módulos, pasos, FAQ. */
+:root{
+  --bg:#ECEDEF; --panel:#FFFFFF; --panel2:#E1E3E8; --line:#CFD2D9;
+  --fg:#16181D; --muted:#5A606C; --orange:#E2481C; --cyan:#0089B8; --good:#178A4C;
+  --on-orange:#FFFFFF;
+  --f-display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111216; --panel:#191B21; --panel2:#23262E; --line:#2E323C;
+  --fg:#EBECF0; --muted:#969CAA; --orange:#FF5C2E; --cyan:#21C8FF; --good:#43D17F; --on-orange:#16181D;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111216; --panel:#191B21; --panel2:#23262E; --line:#2E323C;
+  --fg:#EBECF0; --muted:#969CAA; --orange:#FF5C2E; --cyan:#21C8FF; --good:#43D17F; --on-orange:#16181D;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--f-body);margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.02;letter-spacing:.005em}
+h2{font-size:clamp(34px,5vw,52px);font-weight:800;text-transform:uppercase}
+h3{font-size:26px;font-weight:800;text-transform:uppercase}
+p{margin:0}
+a{color:inherit}
+.label{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:6px}
+
+/* nav */
+nav{padding-block:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:44px;height:44px}
+.brand b{font:800 30px/1 var(--f-display);letter-spacing:.01em}
+.brand b span{color:var(--orange)}
+.navlink{font-weight:600;text-decoration:none;padding:10px 16px;border:1px solid var(--line);border-radius:999px}
+.navlink:hover{border-color:var(--orange)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:40px 64px}
+.hero h1{font-size:clamp(48px,8vw,96px);font-weight:800;text-transform:uppercase;font-style:italic;letter-spacing:-.005em}
+.hero h1 em{font-style:italic;color:var(--orange)}
+.hero .lead{margin-top:22px;font-size:20px;color:var(--muted);max-width:34em}
+.cta{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{appearance:none;text-decoration:none;border:0;cursor:pointer;font:800 22px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;
+  background:var(--orange);color:var(--on-orange);padding:18px 30px 17px;border-radius:12px;display:inline-flex;gap:12px;align-items:center;
+  transition:transform .12s ease, filter .12s ease}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:22px;height:22px}
+.meta{font-size:14px;color:var(--muted)}
+.meta .mono{color:var(--fg)}
+#status{margin-top:12px;min-height:1.5em;font-size:15px;color:var(--muted)}
+#status.ok{color:var(--good)} #status.err{color:var(--orange)}
+
+/* demo */
+.demo{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:24px;min-width:0}
+.demo-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.wheel-box{display:grid;place-items:center;padding-block:10px 6px;touch-action:none;cursor:grab;user-select:none}
+.wheel-box:active{cursor:grabbing}
+#wheel{width:min(300px,100%);height:auto;transition:transform .05s linear}
+.deg{font:700 54px/1 var(--f-mono);text-align:center;letter-spacing:-.02em}
+.deg small{font-size:18px;color:var(--muted);font-weight:500;letter-spacing:0}
+input[type=range]{width:100%;accent-color:var(--orange);margin-top:14px}
+.compare{display:grid;gap:14px;margin-top:18px}
+.row{display:grid;grid-template-columns:118px 1fr 52px;gap:12px;align-items:center;font-size:15px}
+.track{height:12px;border-radius:6px;background:var(--panel2);position:relative;overflow:hidden}
+.track i{position:absolute;inset:0 auto 0 50%;width:0;border-radius:6px}
+.track .dz{position:absolute;top:0;bottom:0;left:40%;width:20%;background:repeating-linear-gradient(45deg,transparent 0 4px,var(--line) 4px 8px)}
+#bOff i{background:var(--muted)} #bOn i{background:var(--orange)}
+.row .mono{text-align:right}
+.demo-note{margin-top:16px;font-size:14px;color:var(--muted)}
+
+/* compatibles */
+.compat{border-block:1px solid var(--line);padding-block:22px}
+.compat .wrap{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center}
+.compat span{font:600 20px/1.2 var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+.compat .label{margin-right:6px}
+
+/* módulos */
+section{padding-block:80px}
+.intro{max-width:40em;display:grid;gap:14px;margin-bottom:40px}
+.intro p{color:var(--muted);font-size:19px}
+.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mod{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:14px;align-content:start;min-width:0}
+.mod .ico{width:48px;height:48px}
+.mod p{color:var(--muted)}
+.mod ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.spec{display:flex;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding-top:12px;font-size:14px;color:var(--muted)}
+.spec .mono{color:var(--fg)}
+.extras{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.extra{padding:20px 4px 0;border-top:2px solid var(--fg);display:grid;gap:6px}
+.extra b{font:800 20px/1.1 var(--f-display);text-transform:uppercase}
+.extra p{color:var(--muted);font-size:16px}
+
+/* pasos */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:8px;align-content:start}
+.steps li::before{content:counter(s);font:800 64px/1 var(--f-display);color:var(--orange);font-style:italic}
+.steps b{font:800 22px/1.1 var(--f-display);text-transform:uppercase}
+.steps p{color:var(--muted);font-size:16px}
+.steps code{font-family:var(--f-mono);font-size:14px;background:var(--panel2);padding:2px 6px;border-radius:5px}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:820px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+summary{cursor:pointer;font:800 21px/1.2 var(--f-display);text-transform:uppercase;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--orange)}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+details code{background:var(--panel2);padding:2px 6px;border-radius:5px;font-size:14px}
+
+/* final */
+.final{background:var(--panel);border-block:1px solid var(--line)}
+.final .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+footer{padding-block:28px 40px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:36px;padding-block:20px 48px}
+  .modules,.extras{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  section{padding-block:60px}
+}
+@media (max-width:520px){
+  .steps{grid-template-columns:1fr}
+  .row{grid-template-columns:92px 1fr 46px;font-size:14px}
+  .deg{font-size:44px}
+  .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav>
+    <a class="brand" href="#top" aria-label="RoSim">
+      <img src="logo_160.png" alt="">
+      <b>Ro<span>Sim</span></b>
+    </a>
+    <a class="navlink" href="#descargar">Descargar gratis</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="label">Gratis · Windows 10 y 11</p>
+      <h1 style="margin-top:14px">Tu volante en Roblox, <em>sin zona muerta.</em></h1>
+      <p class="lead">RoSim conecta tu volante, sidestick o palanca de gases a cualquier juego de Roblox. El coche gira desde el primer grado, el avión sigue a tu stick y puedes asignar cada botón a la tecla que quieras.</p>
+      <div class="cta" id="descargar">
+        <a class="btn" id="dl" href="RoSim.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m6 10 6 6 6-6"/><path d="M4 20h16"/></svg>
+          Descargar RoSim
+        </a>
+        <p class="meta"><span class="mono">v<span class="js-ver">1.8</span></span> · <span class="mono" id="size">160 KB</span> · .zip</p>
+      </div>
+      <p id="status" role="status"></p>
+    </div>
+
+    <div class="demo" aria-label="Demostración de la zona muerta">
+      <div class="demo-top">
+        <span class="label">Pruébalo: gira el volante</span>
+        <span class="label mono">G29 · 900°</span>
+      </div>
+      <div class="wheel-box" id="wheelBox">
+        <svg id="wheel" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="var(--orange)" stroke-width="15"/>
+          <polygon points="18,98 100,90 182,98 174,108 100,114 26,108" fill="var(--fg)"/>
+          <polygon points="94,110 106,110 104,170 96,170" fill="var(--fg)"/>
+          <circle cx="100" cy="102" r="14" fill="var(--panel)" stroke="var(--orange)" stroke-width="5"/>
+          <rect x="92" y="11" width="16" height="18" rx="4" fill="var(--cyan)"/>
+        </svg>
+      </div>
+      <div class="deg mono"><span id="degTxt">+0.0</span>°<small> girados</small></div>
+      <label class="label" for="deg" style="display:block;margin-top:10px">Arrastra el volante o usa la barra</label>
+      <input type="range" id="deg" min="-270" max="270" step="0.5" value="0">
+      <div class="compare">
+        <div class="row"><span>Roblox normal</span><div class="track" id="bOff"><div class="dz"></div><i></i></div><span class="mono" id="vOff">0%</span></div>
+        <div class="row"><span><b>Con RoSim</b></span><div class="track" id="bOn"><i></i></div><span class="mono" id="vOn">0%</span></div>
+      </div>
+      <p class="demo-note" id="note">Roblox ignora el primer 20% del stick del mando. Con 540° de giro completo, eso son <b class="mono">54°</b> de volante en los que el coche no hace nada.</p>
+    </div>
+  </div>
+
+  <div class="compat">
+    <div class="wrap">
+      <span class="label">Compatible con</span>
+      <span>Logitech G29</span><span>G920</span><span>G923</span><span>G27</span><span>G PRO</span>
+      <span>Thrustmaster T300 · T150 · TMX</span><span>TCA Sidestick Airbus</span><span>TCA Quadrant</span>
+      <span>Cualquier joystick</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="intro">
+        <p class="label">Qué hace</p>
+        <h2>Coches, aviones y teclas en una sola app</h2>
+        <p>RoSim detecta solo lo que conectas y te enseña sus valores en directo: los grados que giras, el porcentaje de cada pedal y cada botón que pulsas.</p>
+      </div>
+      <div class="modules">
+        <article class="mod">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="17" stroke="var(--orange)" stroke-width="5"/><path d="M7 24h34M24 26v15" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"/></svg>
+          <h3>Volante</h3>
+          <p>Se pasa a Roblox como un mando de Xbox: dirección al stick y pedales a los gatillos.</p>
+          <ul>
+            <li>Anti-zona muerta: gira desde 1°</li>
+            <li>Grados reales y % de pedales en vivo</li>
+            <li>Force feedback activable: centrado, peso y vibración</li>
+            <li>Sincroniza tu volante con el del coche, grado a grado</li>
+          </ul>
+          <div class="spec"><span>Rango G29</span><span class="mono">900°</span></div>
+        </article>
+        <article class="mod">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="9" width="38" height="26" rx="4" stroke="var(--cyan)" stroke-width="4"/><circle cx="24" cy="22" r="3.5" fill="var(--cyan)"/><path d="M24 35v8M16 43h16" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"/></svg>
+          <h3>Sidestick → ratón</h3>
+          <p>El cursor sigue la posición del stick: arriba es arriba. Lo sueltas al centro y el cursor vuelve al centro, así el avión vuela recto. La palanca de velocidad va aparte, a W/S.</p>
+          <ul>
+            <li>Modo absoluto o por velocidad</li>
+            <li>Radio, centro y suavizado ajustables</li>
+            <li>Estilo avión: tirar sube el morro</li>
+            <li>«Ratón fácil»: se configura en 3 pasos guiados</li>
+          </ul>
+          <div class="spec"><span>Probado con</span><span class="mono">TCA Airbus</span></div>
+        </article>
+        <article class="mod">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M14 42V8M34 42V8" stroke="var(--line)" stroke-width="4" stroke-linecap="round"/><rect x="8" y="14" width="12" height="9" rx="3" fill="var(--orange)"/><rect x="28" y="24" width="12" height="9" rx="3" fill="var(--fg)"/></svg>
+          <h3>Palanca de gases</h3>
+          <p>Mueve la palanca y RoSim pulsa subir o bajar gas hasta que el acelerador del juego coincide con ella.</p>
+          <ul>
+            <li>W/S o las teclas que tu juego use</li>
+            <li>Ralentí y tope resincronizan solos</li>
+            <li>Velocidad del gas ajustable al juego</li>
+            <li>Calibración en 5 segundos</li>
+          </ul>
+          <div class="spec"><span>Ejemplo</span><span class="mono">0→100% en 4,0 s</span></div>
+        </article>
+      </div>
+      <div class="extras">
+        <div class="extra"><b>Cualquier botón, cualquier tecla</b><p>Asigna botones y cruceta a una letra, a un botón de mando o a una acción. Los ejes también pueden pulsar teclas.</p></div>
+        <div class="extra"><b>Solo actúa en Roblox</b><p>Por defecto solo envía órdenes cuando Roblox o Roblox Studio están delante, así no te mueve el ratón del escritorio.</p></div>
+        <div class="extra"><b>Se actualiza sola</b><p>Al abrirse, RoSim mira si hay versión nueva y la instala con un clic, sin perder tus ajustes. Además crea su icono en el escritorio.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="intro">
+        <p class="label">Instalación</p>
+        <h2>Un doble clic y a jugar</h2>
+      </div>
+      <ol class="steps">
+        <li><b>Descarga</b><p>Pulsa «Descargar RoSim» y descomprime el .zip donde quieras.</p></li>
+        <li><b>Instala</b><p>Abre <code>INSTALAR.bat</code>. Instala solo todo lo que hace falta y te deja el icono de RoSim en el escritorio.</p></li>
+        <li><b>Abre RoSim</b><p>Doble clic en el icono del escritorio y conecta tu volante, sidestick o palanca.</p></li>
+        <li><b>Juega</b><p>Usa el asistente si algún pedal o eje sale cambiado, abre Roblox y listo.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="intro"><p class="label">Preguntas</p><h2>Antes de descargar</h2></div>
+      <div class="faq">
+        <details><summary>¿Es gratis de verdad?</summary><p>Sí. Sin anuncios, sin cuentas y sin pagos. El código Python va incluido en el .zip, así que puedes ver todo lo que hace.</p></details>
+        <details><summary>¿Me pueden banear en Roblox?</summary><p>RoSim no toca Roblox ni sus archivos. Solo crea un mando de Xbox virtual y pulsa teclas y mueve el ratón como lo harías tú. Aun así, cada juego tiene sus normas: úsalo con cabeza.</p></details>
+        <details><summary>¿Por qué el coche no giraba con mi volante antes?</summary><p>Roblox trata el volante como el stick de un mando y descarta el primer 20% del recorrido. RoSim adelanta la señal justo esa cantidad, así que el primer grado de giro ya llega al coche.</p></details>
+        <details><summary>¿Funciona el force feedback?</summary><p>Roblox no envía force feedback a volantes. RoSim genera sus propios efectos (muelle de centrado, amortiguación, fricción) y convierte la vibración que el juego manda al mando en vibración del volante. Se activa y desactiva con un interruptor.</p></details>
+        <details><summary>¿Qué necesito?</summary><p>Solo Windows 10 u 11. <code class="mono">INSTALAR.bat</code> instala por ti Python, las librerías y el driver del mando virtual (ViGEmBus); Windows te pedirá permiso de administrador una vez. En Logitech G HUB pon el rango de giro a 900° y desactiva su muelle de centrado.</p></details>
+        <details><summary>¿Cómo actualizo?</summary><p>No hace falta volver a esta página. RoSim mira solo si hay versión nueva cada vez que lo abres; si la hay, el botón «Actualizar» se pone naranja. Pulsas «Descargar e instalar», luego «Reiniciar», y tus ajustes y teclas se conservan.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div class="wrap" style="padding-block:44px">
+      <div style="display:grid;gap:8px">
+        <h2>Conecta. Calibra. Juega.</h2>
+        <p class="meta">Versión <span class="mono js-ver">1.8</span> para Windows · gratis</p>
+      </div>
+      <a class="btn" id="dl2" href="RoSim.zip" download>Descargar RoSim</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>RoSim · hecho por fans de la simulación</span>
+    <span>RoSim no está afiliado ni respaldado por Roblox Corporation, Logitech ni Thrustmaster.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const status = document.getElementById("status");
+  fetch("version.json", {cache: "no-store"}).then(r => r.json()).then(v => {
+    document.querySelectorAll(".js-ver").forEach(el => el.textContent = v.version);
+    if (v.size_kb) document.getElementById("size").textContent = v.size_kb + " KB";
+  }).catch(() => {});
+  function done(){ status.textContent = "Descargando… Descomprime RoSim.zip y abre INSTALAR.bat."; status.className = "ok"; }
+  document.getElementById("dl").addEventListener("click", done);
+  document.getElementById("dl2").addEventListener("click", done);
+  // ---------- demo del volante ----------
+  const wheel = document.getElementById("wheel"), range = document.getElementById("deg");
+  const degTxt = document.getElementById("degTxt"), vOff = document.getElementById("vOff"), vOn = document.getElementById("vOn");
+  const bOff = document.querySelector("#bOff i"), bOn = document.querySelector("#bOn i");
+  const LOCK = 270, DZ = 0.20;   // giro completo a 540°, zona muerta de Roblox 20%
+  function fill(el, v){
+    const w = Math.abs(v) * 50;
+    el.style.width = w + "%";
+    el.style.left = v >= 0 ? "50%" : (50 - w) + "%";
+  }
+  function setDeg(d){
+    d = Math.max(-LOCK, Math.min(LOCK, d));
+    range.value = d;
+    wheel.style.transform = "rotate(" + d + "deg)";
+    degTxt.textContent = (d >= 0 ? "+" : "−") + Math.abs(d).toFixed(1);
+    const s = d / LOCK, a = Math.abs(s), sg = Math.sign(s);
+    const off = a <= DZ ? 0 : (a - DZ) / (1 - DZ);   // lo que recibe el coche sin RoSim
+    const on = a;                                       // con anti-zona muerta: lineal desde 0
+    fill(bOff, sg * off); fill(bOn, sg * on);
+    vOff.textContent = Math.round(off * 100) + "%";
+    vOn.textContent = Math.round(on * 100) + "%";
+  }
+  range.addEventListener("input", () => setDeg(parseFloat(range.value)));
+  const box = document.getElementById("wheelBox");
+  let dragging = false, lastAng = 0, cur = 0;
+  function ang(e){ const r = wheel.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height/2), e.clientX - (r.left + r.width/2)) * 180 / Math.PI; }
+  box.addEventListener("pointerdown", e => { dragging = true; lastAng = ang(e); cur = parseFloat(range.value); box.setPointerCapture(e.pointerId); });
+  box.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    let a = ang(e), diff = a - lastAng;
+    if (diff > 180) diff -= 360; if (diff < -180) diff += 360;
+    lastAng = a; cur = Math.max(-LOCK, Math.min(LOCK, cur + diff)); setDeg(cur);
+  });
+  const end = () => { dragging = false; };
+  box.addEventListener("pointerup", end); box.addEventListener("pointercancel", end);
+  setDeg(32);
+})();
+</script>
+</body>
+</html>
