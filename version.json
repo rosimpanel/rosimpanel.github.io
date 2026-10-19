@@ -1,6 +1,6 @@
 {
- "version": "2.9",
+ "version": "3.0",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 180,
- "notas": "Calibrar con el juego por marcas: pones tu volante en la marca y con la cruceta igualas el del juego. 1:1 exacto."
+ "size_kb": 182,
+ "notas": "Calibrar volante: tu tope = tope del juego. Calibraciones guardadas. Respuesta rápida si el juego va lento."
 }
