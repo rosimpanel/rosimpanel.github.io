@@ -1,6 +1,6 @@
 {
- "version": "3.4",
+ "version": "3.5",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 186,
- "notas": "Calibración por varios puntos (sirve para juegos que giran raro, sin zona muerta). Modo tren con la palanca de gases."
+ "notas": "Calibración por varios puntos (juegos que giran raro, sin zona muerta), sentido de giro automático y modo tren."
 }
