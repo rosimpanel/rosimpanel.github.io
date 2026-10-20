@@ -1,6 +1,6 @@
 {
- "version": "3.3",
+ "version": "3.4",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
- "size_kb": 183,
- "notas": "Calibración arreglada: el paso de 90° ya no mide antes de tiempo y detecta solo la dirección del volante."
+ "size_kb": 186,
+ "notas": "Calibración por varios puntos (sirve para juegos que giran raro, sin zona muerta). Modo tren con la palanca de gases."
 }
