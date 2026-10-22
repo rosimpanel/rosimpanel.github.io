@@ -1,6 +1,6 @@
 {
- "version": "3.5",
+ "version": "3.6",
  "zip": "https://rosimpanel.github.io/RoSim.zip",
  "size_kb": 186,
- "notas": "Calibración por varios puntos (juegos que giran raro, sin zona muerta), sentido de giro automático y modo tren."
+ "notas": "Arreglada la palanca de gases: ya responde al salir de ralentí y dos palancas con las mismas teclas no se anulan."
 }
